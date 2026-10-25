@@ -1,0 +1,571 @@
+{
+  "date": "2026-10-26",
+  "metals": [
+    {
+      "name": "今日金价",
+      "sell_price": "860",
+      "today_price": "863",
+      "high_price": "863.01",
+      "low_price": "863",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "黄金价格",
+      "sell_price": "860",
+      "today_price": "863",
+      "high_price": "863.01",
+      "low_price": "863",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "黄金_9999",
+      "sell_price": "862.99",
+      "today_price": "863.8",
+      "high_price": "872.99",
+      "low_price": "855",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "黄金_T+D",
+      "sell_price": "857.02",
+      "today_price": "862",
+      "high_price": "866.79",
+      "low_price": "854.81",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "伦敦金(现货黄金)",
+      "sell_price": "3997.81",
+      "today_price": "3998.17",
+      "high_price": "4033.47",
+      "low_price": "3975.7",
+      "unit": "美元/盎司",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "纽约黄金(美国)",
+      "sell_price": "4009.4",
+      "today_price": "4009.8",
+      "high_price": "4050.2",
+      "low_price": "3989.1",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "白银价格",
+      "sell_price": "12.2",
+      "today_price": "12.3",
+      "high_price": "12.302",
+      "low_price": "12.3",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "铂金价格",
+      "sell_price": "334.5",
+      "today_price": "336",
+      "high_price": "336",
+      "low_price": "335.7",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    },
+    {
+      "name": "钯金价格",
+      "sell_price": "224",
+      "today_price": "225.5",
+      "high_price": "225.5",
+      "low_price": "224.4",
+      "unit": "元/克",
+      "updated": "2026-10-26 01:57:41",
+      "updated_at": 1792951061237
+    }
+  ],
+  "stores": [
+    {
+      "brand": "伦敦金（现货黄金XAUUSD）",
+      "product": "3997.7",
+      "price": "3997.7",
+      "unit": "元/克",
+      "formatted": "3997.7",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "纽约黄金(COMEX期货黄金)",
+      "product": "3997.7",
+      "price": "3997.7",
+      "unit": "元/克",
+      "formatted": "3997.7",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "黄金9999（上金所黄金现货）",
+      "product": "862.9元/克",
+      "price": "862.9",
+      "unit": "元/克",
+      "formatted": "862.9",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "黄金T+D（上金所黄金延期）",
+      "product": "862.9",
+      "price": "862.9",
+      "unit": "元/克",
+      "formatted": "862.9",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "今日金价",
+      "product": "862.9",
+      "price": "862.9",
+      "unit": "元/克",
+      "formatted": "862.9",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "黄金价格",
+      "product": "862.9",
+      "price": "862.9",
+      "unit": "元/克",
+      "formatted": "862.9",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "白银价格",
+      "product": "12.3",
+      "price": "12.3",
+      "unit": "元/克",
+      "formatted": "12.3",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "铂金价格",
+      "product": "394",
+      "price": "394",
+      "unit": "元/克",
+      "formatted": "394",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "钯金价格",
+      "product": "154",
+      "price": "154",
+      "unit": "元/克",
+      "formatted": "154",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "水贝黄金",
+      "product": "黄金",
+      "price": "1023",
+      "unit": "元/克",
+      "formatted": "1023元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "周大福",
+      "product": "黄金",
+      "price": "1202",
+      "unit": "元/克",
+      "formatted": "1202元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "老凤祥",
+      "product": "黄金",
+      "price": "1206",
+      "unit": "元/克",
+      "formatted": "1206元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "老庙黄金",
+      "product": "黄金",
+      "price": "1196",
+      "unit": "元/克",
+      "formatted": "1196元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "周生生",
+      "product": "黄金",
+      "price": "1200",
+      "unit": "元/克",
+      "formatted": "1200元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "六福珠宝",
+      "product": "黄金",
+      "price": "1200",
+      "unit": "元/克",
+      "formatted": "1200元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "潮宏基",
+      "product": "黄金",
+      "price": "1202",
+      "unit": "元/克",
+      "formatted": "1202元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "谢瑞麟",
+      "product": "黄金",
+      "price": "1202",
+      "unit": "元/克",
+      "formatted": "1202元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "菜百首饰",
+      "product": "黄金",
+      "price": "1205",
+      "unit": "元/克",
+      "formatted": "1205元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "周六福",
+      "product": "黄金",
+      "price": "1197",
+      "unit": "元/克",
+      "formatted": "1197元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "周大生",
+      "product": "黄金",
+      "price": "1202",
+      "unit": "元/克",
+      "formatted": "1202元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "中国黄金",
+      "product": "黄金",
+      "price": "1198",
+      "unit": "元/克",
+      "formatted": "1198元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "金大福",
+      "product": "黄金",
+      "price": "1195",
+      "unit": "元/克",
+      "formatted": "1195元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "brand": "投资类",
+      "product": "金条",
+      "price": "876",
+      "unit": "元/克",
+      "formatted": "876元/克",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    }
+  ],
+  "banks": [
+    {
+      "bank": "工商银行",
+      "product": "如意金条",
+      "price": "875.36",
+      "unit": "元/克",
+      "formatted": "875.36元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "中国银行",
+      "product": "投资金条",
+      "price": "880.00",
+      "unit": "元/克",
+      "formatted": "880.00元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "建设银行",
+      "product": "投资金条",
+      "price": "875.60",
+      "unit": "元/克",
+      "formatted": "875.60元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "农业银行",
+      "product": "投资金条",
+      "price": "884.00",
+      "unit": "元/克",
+      "formatted": "884.00元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "民生银行",
+      "product": "投资金条",
+      "price": "877.40",
+      "unit": "元/克",
+      "formatted": "877.40元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "平安银行",
+      "product": "投资金条",
+      "price": "887.40",
+      "unit": "元/克",
+      "formatted": "887.40元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "邮政银行",
+      "product": "投资金条",
+      "price": "881.00",
+      "unit": "元/克",
+      "formatted": "881.00元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "招商银行",
+      "product": "投资金条",
+      "price": "890.96",
+      "unit": "元/克",
+      "formatted": "890.96元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "交通银行",
+      "product": "投资金条",
+      "price": "881.00",
+      "unit": "元/克",
+      "formatted": "881.00元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "中信银行",
+      "product": "投资金条",
+      "price": "877.50",
+      "unit": "元/克",
+      "formatted": "877.50元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "兴业银行",
+      "product": "投资金条",
+      "price": "879.37",
+      "unit": "元/克",
+      "formatted": "879.37元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "中国黄金",
+      "product": "投资金条",
+      "price": "878.9",
+      "unit": "元/克",
+      "formatted": "878.9元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "菜百首饰",
+      "product": "投资金条",
+      "price": "882",
+      "unit": "元/克",
+      "formatted": "882元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "周大福",
+      "product": "工艺金条",
+      "price": "1060",
+      "unit": "元/克",
+      "formatted": "1060元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "周大福",
+      "product": "投资金条",
+      "price": "925",
+      "unit": "元/克",
+      "formatted": "925元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "六福珠宝",
+      "product": "工艺金条",
+      "price": "1058",
+      "unit": "元/克",
+      "formatted": "1058元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "金至尊珠宝",
+      "product": "工艺金条",
+      "price": "1058",
+      "unit": "元/克",
+      "formatted": "1058元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "老凤祥",
+      "product": "投资金条",
+      "price": "1063",
+      "unit": "元/克",
+      "formatted": "1063元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "老庙黄金",
+      "product": "投资金条",
+      "price": "1021",
+      "unit": "元/克",
+      "formatted": "1021元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    },
+    {
+      "bank": "周生生",
+      "product": "工艺金条",
+      "price": "1056",
+      "unit": "元/克",
+      "formatted": "1056元/克",
+      "time": "10:10:44",
+      "updated": "2026-10-26 10:10:44",
+      "updated_at": 1792980644000
+    }
+  ],
+  "recycle": [
+    {
+      "type": "黄金回收",
+      "price": "850",
+      "unit": "元/克",
+      "formatted": "850元/克",
+      "purity": "99.9%-99.999%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "type": "22k金回收",
+      "price": "746",
+      "unit": "元/克",
+      "formatted": "746元/克",
+      "purity": "91.6%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "type": "18k金回收",
+      "price": "615 ",
+      "unit": "元/克",
+      "formatted": "615 元/克",
+      "purity": "75.0%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "type": "14k金回收",
+      "price": "475",
+      "unit": "元/克",
+      "formatted": "475元/克",
+      "purity": "58.5%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "type": "999铂金回收",
+      "price": "295",
+      "unit": "元/克",
+      "formatted": "295元/克",
+      "purity": "99.9%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "type": "999钯金回收",
+      "price": "154",
+      "unit": "元/克",
+      "formatted": "154元/克",
+      "purity": "99.9%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    },
+    {
+      "type": "999白银回收",
+      "price": "9.2 ",
+      "unit": "元/克",
+      "formatted": "9.2 元/克",
+      "purity": "99.9%",
+      "updated": "2026-10-26",
+      "updated_at": 1792944000000
+    }
+  ]
+}
