@@ -3,23 +3,23 @@
   "metals": [
     {
       "name": "今日金价",
-      "sell_price": "860.64",
-      "today_price": "863.64",
+      "sell_price": "857.01",
+      "today_price": "860.01",
       "high_price": "864.33",
-      "low_price": "861.47",
+      "low_price": "859.79",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "黄金价格",
-      "sell_price": "860.64",
-      "today_price": "863.64",
+      "sell_price": "857.01",
+      "today_price": "860.01",
       "high_price": "864.33",
-      "low_price": "861.47",
+      "low_price": "859.79",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "黄金_9999",
@@ -28,8 +28,8 @@
       "high_price": "872.99",
       "low_price": "855",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "黄金_T+D",
@@ -38,58 +38,58 @@
       "high_price": "866.79",
       "low_price": "854.81",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "伦敦金(现货黄金)",
-      "sell_price": "4001.41",
-      "today_price": "4001.76",
+      "sell_price": "3984.23",
+      "today_price": "3984.58",
       "high_price": "4004.08",
-      "low_price": "3991.75",
+      "low_price": "3983.12",
       "unit": "美元/盎司",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "纽约黄金(美国)",
-      "sell_price": "4015.1",
-      "today_price": "4015.4",
+      "sell_price": "3997.7",
+      "today_price": "3998.1",
       "high_price": "4017.9",
-      "low_price": "4005.5",
+      "low_price": "3996.6",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "白银价格",
-      "sell_price": "12.258",
-      "today_price": "12.358",
+      "sell_price": "12.205",
+      "today_price": "12.305",
       "high_price": "12.38",
-      "low_price": "12.299",
+      "low_price": "12.271",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "铂金价格",
-      "sell_price": "336.3",
-      "today_price": "337.8",
+      "sell_price": "333.4",
+      "today_price": "334.9",
       "high_price": "338.1",
-      "low_price": "335.5",
+      "low_price": "334.5",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     },
     {
       "name": "钯金价格",
-      "sell_price": "226",
-      "today_price": "227.5",
-      "high_price": "227.8",
-      "low_price": "225.5",
+      "sell_price": "224.2",
+      "today_price": "225.7",
+      "high_price": "227.9",
+      "low_price": "225.3",
       "unit": "元/克",
-      "updated": "2026-10-26 06:54:39",
-      "updated_at": 1792968879913
+      "updated": "2026-10-26 08:50:24",
+      "updated_at": 1792975824202
     }
   ],
   "stores": [
