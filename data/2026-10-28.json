@@ -3,93 +3,93 @@
   "metals": [
     {
       "name": "今日金价",
-      "sell_price": "869.81",
-      "today_price": "872.81",
-      "high_price": "874",
-      "low_price": "858.14",
+      "sell_price": "331.9",
+      "today_price": "222.2",
+      "high_price": "223.7",
+      "low_price": "223.8",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "黄金价格",
-      "sell_price": "869.81",
-      "today_price": "872.81",
-      "high_price": "874",
-      "low_price": "858.14",
+      "sell_price": "331.9",
+      "today_price": "222.2",
+      "high_price": "223.7",
+      "low_price": "223.8",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "黄金_9999",
-      "sell_price": "870",
-      "today_price": "875.89",
-      "high_price": "873",
-      "low_price": "860.2",
+      "sell_price": "4059.55",
+      "today_price": "54.443",
+      "high_price": "54.497",
+      "low_price": "54.498",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "黄金_T+D",
-      "sell_price": "870.01",
-      "today_price": "873.8",
-      "high_price": "873",
-      "low_price": "862",
+      "sell_price": "54.385",
+      "today_price": "4075",
+      "high_price": "4075.2",
+      "low_price": "4077.9",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "伦敦金(现货黄金)",
-      "sell_price": "4058.09",
-      "today_price": "4058.44",
-      "high_price": "4065.59",
-      "low_price": "3989.06",
+      "sell_price": "4072.8",
+      "today_price": "1545.5",
+      "high_price": "1546.2",
+      "low_price": "1546.8",
       "unit": "美元/盎司",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "纽约黄金(美国)",
-      "sell_price": "4071.5",
-      "today_price": "4071.7",
-      "high_price": "4079.4",
-      "low_price": "4001.6",
+      "sell_price": "13071",
+      "today_price": "13187",
+      "high_price": "13173",
+      "low_price": "12780",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "白银价格",
-      "sell_price": "12.311",
-      "today_price": "12.411",
-      "high_price": "12.479",
-      "low_price": "11.995",
+      "sell_price": "222.8",
+      "today_price": "37776",
+      "high_price": "37784",
+      "low_price": "--",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "铂金价格",
-      "sell_price": "329",
-      "today_price": "330.5",
-      "high_price": "332.7",
-      "low_price": "321.8",
+      "sell_price": "--",
+      "today_price": "870.68",
+      "high_price": "635.59",
+      "low_price": "313.07",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     },
     {
       "name": "钯金价格",
-      "sell_price": "220.2",
-      "today_price": "221.7",
-      "high_price": "226.5",
-      "low_price": "218.2",
+      "sell_price": "215.53",
+      "today_price": "4061.77",
+      "high_price": "4062.12",
+      "low_price": "4064.5",
       "unit": "元/克",
-      "updated": "2026-10-28 03:03:18",
-      "updated_at": 1793127798178
+      "updated": "2026-10-28 07:19:18",
+      "updated_at": 1793143158683
     }
   ],
   "stores": [
