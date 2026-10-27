@@ -33,6 +33,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No new data to commit"
           else
-            git commit -m "chore: update gold price data for $(date +%Y-%m-%d)"
+            git commit -m "chore: update gold price data for $(date '+%Y-%m-%d %H:%M:%S')"
             git push
           fi
