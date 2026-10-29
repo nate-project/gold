@@ -271,8 +271,8 @@
          <el-select v-model="selectedDate" placeholder="选择日期" style="width:170px" size="default">
             <el-option v-for="d in dates" :key="d" :label="d" :value="d" />
          </el-select>
-         <el-tag v-if="!liveMode" type="info" effect="dark" size="small">内置快照</el-tag>
-         <el-tag v-else type="success" effect="dark" size="small">实时读取</el-tag>
+         <el-tag v-if="!liveMode" type="danger" effect="dark" size="small">加载失败</el-tag>
+         <el-tag v-else :type="isLocal ? 'success' : 'warning'" effect="dark" size="small">{{ isLocal ? '本地数据' : '远程数据' }}</el-tag>
          <span v-if="current && current.metals[0]" class="page-sub">更新于 {{ current.metals[0].updated }}</span>
       </div>
 
@@ -405,7 +405,8 @@
          </el-tab-pane>
       </el-tabs>
 
-      <div class="footer">数据来源：本地 data/ 目录 · 可视化由 ECharts + Element Plus 生成</div>
+      <div class="footer">数据来源：{{ isLocal ? '本地 data/ 目录' : 'GitHub 远程仓库 (raw.githubusercontent.com)' }} · 可视化由 ECharts + Element Plus 生成</div>
+      <div v-if="loadError" class="empty-tip">{{ loadError }}</div>
    </div>
 
    <script src="lib/vue.global.prod.js"></script>
@@ -417,6 +418,10 @@
       const App = {
          setup() {
             const embedded = window.__EMBEDDED__ || { dates: [], days: {} };
+            // 数据源：localhost 用本地 data/ 目录，其它域名（如 GitHub Pages）用远程 raw 仓库
+            const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+            const DATA_BASE = isLocal ? 'data/' : 'https://raw.githubusercontent.com/nate-project/gold/refs/heads/main/data/';
+            const loadError = ref('');
             const dates = ref([]);
             const days = ref({});
             const liveMode = ref(false);
@@ -626,21 +631,42 @@
                });
             }
 
-            async function loadLive() {
-               const idx = await fetch('data/index.json').then(r => r.json());
+            // 生成从 START_DATE 到今天的所有候选日期
+            const START_DATE = '2026-10-23';
+            function candidateDates() {
+               const out = [];
+               const start = new Date(START_DATE + 'T00:00:00');
+               const end = new Date();
+               end.setHours(23, 59, 59, 999);
+               for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                  const y = d.getFullYear();
+                  const m = String(d.getMonth() + 1).padStart(2, '0');
+                  const day = String(d.getDate()).padStart(2, '0');
+                  out.push(y + '-' + m + '-' + day);
+               }
+               return out;
+            }
+
+            // 逐个探测哪些日期有数据（不再依赖 index.json）
+            async function loadAvailable(base) {
                const map = {};
-               await Promise.all(idx.map(async (d) => {
-                  try { map[d] = await fetch('data/' + d + '.json').then(r => r.json()); } catch (e) { }
+               await Promise.all(candidateDates().map(async (d) => {
+                  try {
+                     const r = await fetch(base + d + '.json');
+                     if (!r.ok) return;
+                     const json = await r.json();
+                     if (json && json.metals) map[d] = json;
+                  } catch (e) { }
                }));
-               const keys = Object.keys(map).filter(k => map[k]);
-               if (!keys.length) throw new Error('no live data');
-               return { dates: keys.sort(), days: map };
+               const keys = Object.keys(map).sort();
+               if (!keys.length) throw new Error('no data');
+               return { dates: keys, days: map };
             }
 
             onMounted(async () => {
                let data;
-               try { data = await loadLive(); liveMode.value = true; }
-               catch (e) { data = embedded; liveMode.value = false; }
+               try { data = await loadAvailable(DATA_BASE); liveMode.value = true; }
+               catch (e) { data = embedded; liveMode.value = false; loadError.value = '数据加载失败：' + e.message; }
                dates.value = data.dates.slice().sort();
                days.value = data.days;
                selectedDate.value = dates.value[dates.value.length - 1] || '';
@@ -655,7 +681,7 @@
             watch([priceField, normalize], () => { renderTrend(); });
 
             return {
-               dates, selectedDate, liveMode, allMetals, selectedMetals, activeTab,
+               dates, selectedDate, liveMode, isLocal, loadError, allMetals, selectedMetals, activeTab,
                priceField, normalize,
                current, kpis, dateRangeText, retailStores, investBanks,
                trendEl, storeEl, bankEl, recycleEl, premiumEl,
