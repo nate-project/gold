@@ -244,9 +244,7 @@
                      <div class="m-desc">{{ metalDesc(row.name) }}</div>
                   </template>
                </el-table-column>
-               <el-table-column key="market" label="市场" min-width="100" header-align="center"
-                  :filters="[{text:'国内',value:'国内'},{text:'国际',value:'国际'}]"
-                  :filter-method="(v,r)=>marketOf(r.name)===v">
+               <el-table-column key="market" label="市场" min-width="100" header-align="center">
                   <template #header>
                      <el-tooltip content="国内报价（元/克）或国际报价（美元/盎司）" placement="top">
                         <span>市场</span>
@@ -313,18 +311,6 @@
                      <span v-else>—</span>
                   </template>
                </el-table-column>
-               <el-table-column key="status" label="状态" min-width="100" header-align="center">
-                  <template #header>
-                     <el-tooltip content="最高<最低为「高低异常」；含缺失值为「缺失」；否则「正常」" placement="top">
-                        <span>状态</span>
-                     </el-tooltip>
-                  </template>
-                  <template #default="{row}">
-                     <el-tag v-if="lowHighAnomaly(row)" type="warning" size="small" effect="dark">高低异常</el-tag>
-                     <el-tag v-else-if="hasDash(row)" type="info" size="small" effect="plain">缺失</el-tag>
-                     <span v-else class="ok-tag">正常</span>
-                  </template>
-               </el-table-column>
             </el-table>
          </el-tab-pane>
          <el-tab-pane label="零售门店" name="stores">
@@ -342,7 +328,7 @@
                   </template>
                   <template #default="{row}"><b style="color:#f3f3fa">{{ row.brand }}</b></template>
                </el-table-column>
-               <el-table-column key="gold-price" label="黄金金价" min-width="100" sortable :sort-method="numSortPrice"
+               <el-table-column key="gold-price" label="黄金金价" min-width="100" sortable :sort-method="numSortBy('price')"
                   align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="到店买黄金饰品/金条每克要付的钱（含工费与品牌溢价）" placement="top">
@@ -353,7 +339,7 @@
                         }}</small></template>
                </el-table-column>
                <el-table-column key="plat-price" label="铂金金价" min-width="100" sortable
-                  :sort-method="(a,b)=>(num(a.extra_price)??-Infinity)-(num(b.extra_price)??-Infinity)" align="right"
+                  :sort-method="numSortBy('extra_price')" align="right"
                   header-align="right">
                   <template #header>
                      <el-tooltip content="部分品牌另附的铂金每克售价，无则显示「—」" placement="top">
@@ -411,15 +397,15 @@
                         /工艺/.test(row.product) ? '工艺饰品·高工费' : '投资·低工费' }}</el-tag>
                   </template>
                </el-table-column>
-               <el-table-column key="category" prop="category" label="类别" min-width="100" :filters="catFilters"
-                  :filter-method="catFilterM" show-overflow-tooltip>
+               <el-table-column key="category" prop="category" label="类别" min-width="100"
+                   show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="机构给金条贴的分类标签" placement="top">
                         <span>类别</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="price" label="价格" min-width="100" sortable :sort-method="numSortPrice" align="right"
+               <el-table-column key="price" label="价格" min-width="100" sortable :sort-method="numSortBy('price')" align="right"
                   header-align="right">
                   <template #header>
                      <el-tooltip content="该金条每克售价（已含工费）" placement="top">
@@ -478,7 +464,7 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column label="回收价" min-width="100" sortable :sort-method="numSortPrice" align="right"
+               <el-table-column label="回收价" min-width="100" sortable :sort-method="numSortBy('price')" align="right"
                   header-align="right">
                   <template #header>
                      <el-tooltip content="把旧金卖回商家每克能拿到的钱（三类里最低）" placement="top">
@@ -575,28 +561,16 @@
                return { rowspan: span, colspan: 1 };
             }
 
-            function metalVal(name, date, field) {
-               const d = days.value[date];
-               if (!d) return null;
-               const m = d.metals.find(x => x.name === name);
-               return m ? num(m[field]) : null;
-            }
-            function storeVal(brand, date) {
-               const d = days.value[date];
-               if (!d) return null;
-               const s = d.stores.find(x => x.brand === brand && x.product === '黄金');
-               return s ? num(s.price) : null;
-            }
-            function bankVal(bank, date) {
-               const d = days.value[date];
-               if (!d) return null;
-               const b = d.banks.find(x => x.bank === bank && /金条/.test(x.product));
-               return b ? num(b.price) : null;
-            }
+            const dayList = (date, key) => (days.value[date] && days.value[date][key]) || null;
+            const findNum = (list, match, field) => {
+               const it = list && list.find(match);
+               return it ? num(it[field]) : null;
+            };
+            const metalVal = (name, date, field) => findNum(dayList(date, 'metals'), x => x.name === name, field);
+            const storeVal = (brand, date) => findNum(dayList(date, 'stores'), x => x.brand === brand && x.product === '黄金', 'price');
             function recycleVal(type, date) {
-               const d = days.value[date];
-               if (!d || !d.recycle) return null;
-               const list = d.recycle;
+               const list = dayList(date, 'recycle');
+               if (!list) return null;
                const r = list.find(x => x.type === type)
                   || list.find(x => x.type.includes(type))
                   || list.find(x => /黄金/.test(type) && /黄金/.test(x.type) && /回收/.test(x.type));
@@ -618,33 +592,19 @@
             const marketOf = (name) => /伦敦金|纽约黄金/.test(name) ? '国际' : '国内';
 
             const numSortBy = (field) => (a, b) => (num(a[field]) ?? -Infinity) - (num(b[field]) ?? -Infinity);
-            const numSortPrice = (a, b) => (num(a.price) ?? -Infinity) - (num(b.price) ?? -Infinity);
-            const catFilters = [{ text: '银行', value: '银行' }, { text: '珠宝品牌', value: '珠宝品牌' }];
-            const catFilterM = (value, row) => row.category === value;
 
-            function metalChange(name) {
+            function metalCurPrev(name) {
                const idx = dates.value.indexOf(selectedDate.value);
                if (idx <= 0) return null;
-               const cur = metalVal(name, selectedDate.value, 'today_price');
-               const prev = metalVal(name, dates.value[idx - 1], 'today_price');
-               if (cur == null || prev == null) return null;
-               return +(cur - prev).toFixed(2);
+               return [metalVal(name, selectedDate.value, 'today_price'), metalVal(name, dates.value[idx - 1], 'today_price')];
+            }
+            function metalChange(name) {
+               const v = metalCurPrev(name);
+               return (v && v[0] != null && v[1] != null) ? +(v[0] - v[1]).toFixed(2) : null;
             }
             function metalChangePct(name) {
-               const idx = dates.value.indexOf(selectedDate.value);
-               if (idx <= 0) return null;
-               const cur = metalVal(name, selectedDate.value, 'today_price');
-               const prev = metalVal(name, dates.value[idx - 1], 'today_price');
-               if (cur == null || prev == null || prev === 0) return null;
-               return +(((cur - prev) / prev) * 100).toFixed(2);
-            }
-            function lowHighAnomaly(row) {
-               const h = num(row.high_price), l = num(row.low_price);
-               return h != null && l != null && l > h;
-            }
-            function hasDash(row) {
-               return ['today_price', 'sell_price', 'high_price', 'low_price']
-                  .some(k => { const v = String(row[k] == null ? '' : row[k]).trim(); return v === '--' || v === ''; });
+               const v = metalCurPrev(name);
+               return (v && v[0] != null && v[1] != null && v[1] !== 0) ? +(((v[0] - v[1]) / v[1]) * 100).toFixed(2) : null;
             }
 
 
@@ -690,8 +650,8 @@
             return {
                dates, selectedDate, liveMode, isLocal, loadError, activeTab,
                current, dateRangeText, retailStores, investBanks, baseGold, recycleGold, retailRef,
-               num, numSortBy, numSortPrice, catFilters, catFilterM, bankSpanMethod,
-               metalChange, metalChangePct, metalDesc, marketOf, lowHighAnomaly, hasDash,
+               num, numSortBy, bankSpanMethod,
+               metalChange, metalChangePct, metalDesc, marketOf,
             };
          },
       };
