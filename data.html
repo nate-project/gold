@@ -233,7 +233,7 @@
                <b>最新价</b>为实时报价，<b>卖出价</b>为交易商卖出价，<b>最高/最低</b>为当日区间；<b>较前日</b>含涨跌额与涨跌幅。
             </div>
             <el-table :data="current ? current.metals : []" size="small" stripe border width="100%">
-               <el-table-column key="name" label="品种" width="190" show-overflow-tooltip>
+               <el-table-column key="name" label="品种" min-width="100" show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="金属品种名称及简要说明（如 Au9999、伦敦金等）" placement="top-start">
                         <span>品种</span>
@@ -244,7 +244,7 @@
                      <div class="m-desc">{{ metalDesc(row.name) }}</div>
                   </template>
                </el-table-column>
-               <el-table-column key="market" label="市场" width="80" header-align="center"
+               <el-table-column key="market" label="市场" min-width="100" header-align="center"
                   :filters="[{text:'国内',value:'国内'},{text:'国际',value:'国际'}]"
                   :filter-method="(v,r)=>marketOf(r.name)===v">
                   <template #header>
@@ -257,14 +257,14 @@
                         marketOf(row.name) }}</el-tag>
                   </template>
                </el-table-column>
-               <el-table-column key="unit" prop="unit" label="单位" width="90" header-align="center" align="center">
+               <el-table-column key="unit" prop="unit" label="单位" min-width="100" header-align="center" align="center">
                   <template #header>
                      <el-tooltip content="元/克（国内）或 美元/盎司（国际）" placement="top">
                         <span>单位</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="today" prop="today_price" label="最新价" width="100" sortable
+               <el-table-column key="today" prop="today_price" label="最新价" min-width="100" sortable
                   :sort-method="numSortBy('today_price')" align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="实时最新报价" placement="top">
@@ -273,7 +273,7 @@
                   </template>
                   <template #default="{row}"><b>{{ row.today_price }}</b></template>
                </el-table-column>
-               <el-table-column key="sell" prop="sell_price" label="卖出价" width="90" sortable
+               <el-table-column key="sell" prop="sell_price" label="卖出价" min-width="100" sortable
                   :sort-method="numSortBy('sell_price')" align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="交易商卖出价" placement="top">
@@ -281,7 +281,7 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="high" prop="high_price" label="最高" width="90" sortable
+               <el-table-column key="high" prop="high_price" label="最高" min-width="100" sortable
                   :sort-method="numSortBy('high_price')" align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="当日最高价" placement="top">
@@ -289,7 +289,7 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="low" prop="low_price" label="最低" width="90" sortable
+               <el-table-column key="low" prop="low_price" label="最低" min-width="100" sortable
                   :sort-method="numSortBy('low_price')" align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="当日最低价" placement="top">
@@ -297,7 +297,7 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="change" label="较前日" width="150" header-align="right" align="right">
+               <el-table-column key="change" label="较前日" min-width="100" header-align="right" align="right">
                   <template #header>
                      <el-tooltip content="较前一交易日：涨跌额（括号内为涨跌幅）" placement="top">
                         <span>较前日</span>
@@ -313,7 +313,7 @@
                      <span v-else>—</span>
                   </template>
                </el-table-column>
-               <el-table-column key="status" label="状态" width="90" header-align="center">
+               <el-table-column key="status" label="状态" min-width="100" header-align="center">
                   <template #header>
                      <el-tooltip content="最高<最低为「高低异常」；含缺失值为「缺失」；否则「正常」" placement="top">
                         <span>状态</span>
@@ -325,14 +325,6 @@
                      <span v-else class="ok-tag">正常</span>
                   </template>
                </el-table-column>
-               <el-table-column key="updated" prop="updated" label="更新时间" min-width="150" header-align="center"
-                  align="center">
-                  <template #header>
-                     <el-tooltip content="该行情的更新时间" placement="top">
-                        <span>更新时间</span>
-                     </el-tooltip>
-                  </template>
-               </el-table-column>
             </el-table>
          </el-tab-pane>
          <el-tab-pane label="零售门店" name="stores">
@@ -341,7 +333,7 @@
                最后一列「较回收价溢价」= 零售价 − 黄金回收价，即品牌加价幅度；部分品牌另附 <b>铂金</b> 报价，无则显示「—」。
             </div>
             <el-table :data="retailStores" size="small" stripe border width="100%">
-               <el-table-column key="brand" label="品牌" width="150" sortable
+               <el-table-column key="brand" label="品牌" min-width="100" sortable
                   :sort-method="(a,b)=>(a.brand||'').localeCompare(b.brand||'','zh')">
                   <template #header>
                      <el-tooltip content="零售品牌（周大福、老凤祥等门店金价）" placement="top-start">
@@ -350,7 +342,7 @@
                   </template>
                   <template #default="{row}"><b style="color:#f3f3fa">{{ row.brand }}</b></template>
                </el-table-column>
-               <el-table-column key="gold-price" label="黄金金价" width="120" sortable :sort-method="numSortPrice"
+               <el-table-column key="gold-price" label="黄金金价" min-width="100" sortable :sort-method="numSortPrice"
                   align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="到店买黄金饰品/金条每克要付的钱（含工费与品牌溢价）" placement="top">
@@ -360,7 +352,7 @@
                   <template #default="{row}">{{ row.price }} <small style="color:#9a9ab0">{{ row.unit
                         }}</small></template>
                </el-table-column>
-               <el-table-column key="plat-price" label="铂金金价" width="120" sortable
+               <el-table-column key="plat-price" label="铂金金价" min-width="100" sortable
                   :sort-method="(a,b)=>(num(a.extra_price)??-Infinity)-(num(b.extra_price)??-Infinity)" align="right"
                   header-align="right">
                   <template #header>
@@ -371,7 +363,7 @@
                   <template #default="{row}">{{ (row.extra_product && row.extra_price) ? (row.extra_price + ' 元/克') :
                      '—' }}</template>
                </el-table-column>
-               <el-table-column key="premium" label="较回收价溢价" min-width="150" sortable
+               <el-table-column key="premium" label="较回收价溢价" min-width="100" sortable
                   :sort-method="(a,b)=>(num(a.price)-recycleGold)-(num(b.price)-recycleGold)" align="right"
                   header-align="right">
                   <template #header>
@@ -394,21 +386,21 @@
                「较原料金价」= 金条价 − 今日原料金价（工费空间）；「溢价(较回收价)」= 金条价 − 黄金回收价，即买入后若立即回收会损失的价差。
             </div>
             <el-table :data="investBanks" size="small" stripe border width="100%" :span-method="bankSpanMethod">
-               <el-table-column key="bank" prop="bank" label="机构" width="140" sortable>
+               <el-table-column key="bank" prop="bank" label="机构" min-width="100" sortable>
                   <template #header>
                      <el-tooltip content="出售金条的银行 / 珠宝品牌" placement="top-start">
                         <span>机构</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="product" prop="product" label="产品" width="120" sortable show-overflow-tooltip>
+               <el-table-column key="product" prop="product" label="产品" min-width="100" sortable show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="具体金条产品名（如如意金条、传世金等）" placement="top-start">
                         <span>产品</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="use" label="用途" width="130" header-align="center">
+               <el-table-column key="use" label="用途" min-width="100" header-align="center">
                   <template #header>
                      <el-tooltip content="投资金条：工费低、贴近原料价；工艺金条：偏饰品、工费高" placement="top">
                         <span>用途</span>
@@ -419,7 +411,7 @@
                         /工艺/.test(row.product) ? '工艺饰品·高工费' : '投资·低工费' }}</el-tag>
                   </template>
                </el-table-column>
-               <el-table-column key="category" prop="category" label="类别" width="100" :filters="catFilters"
+               <el-table-column key="category" prop="category" label="类别" min-width="100" :filters="catFilters"
                   :filter-method="catFilterM" show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="机构给金条贴的分类标签" placement="top">
@@ -427,7 +419,7 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="price" label="价格" width="110" sortable :sort-method="numSortPrice" align="right"
+               <el-table-column key="price" label="价格" min-width="100" sortable :sort-method="numSortPrice" align="right"
                   header-align="right">
                   <template #header>
                      <el-tooltip content="该金条每克售价（已含工费）" placement="top">
@@ -437,7 +429,7 @@
                   <template #default="{row}">{{ row.price }} <small style="color:#9a9ab0">{{ row.unit
                         }}</small></template>
                </el-table-column>
-               <el-table-column key="vs-base" label="较原料金价" width="130" sortable header-align="right" align="right"
+               <el-table-column key="vs-base" label="较原料金价" min-width="100" sortable header-align="right" align="right"
                   :sort-method="(a,b)=>(num(a.price)-baseGold)-(num(b.price)-baseGold)">
                   <template #header>
                      <el-tooltip content="金条价 − 今日原料金价，即工费空间" placement="top">
@@ -450,7 +442,7 @@
                      <span v-else>—</span>
                   </template>
                </el-table-column>
-               <el-table-column key="vs-recycle" label="溢价(较回收价)" min-width="150" sortable header-align="right"
+               <el-table-column key="vs-recycle" label="溢价(较回收价)" min-width="100" sortable header-align="right"
                   align="right" :sort-method="(a,b)=>(num(a.price)-recycleGold)-(num(b.price)-recycleGold)">
                   <template #header>
                      <el-tooltip content="金条价 − 黄金回收价；买入后若立即回收会损失的价差" placement="top">
@@ -472,21 +464,21 @@
                「较原料金价」= 原料金价 − 回收价（回收折让）；「回收折让(较零售)」= 周大福零售价 − 回收价，即卖出时相比买入损失的那部分溢价。
             </div>
             <el-table :data="current ? current.recycle : []" size="small" stripe border width="100%">
-               <el-table-column prop="type" label="类型" width="150" sortable show-overflow-tooltip>
+               <el-table-column prop="type" label="类型" min-width="100" sortable show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="回收品类（黄金按 k 值、铂/钯/银按 99.9% 纯度）" placement="top-start">
                         <span>类型</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column prop="purity" label="纯度/成色" width="130" sortable show-overflow-tooltip>
+               <el-table-column prop="purity" label="纯度/成色" min-width="100" sortable show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="含金量：k 值越高越高（24k≈99.9%，18k=75%，14k≈58.5%）" placement="top-start">
                         <span>纯度/成色</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column label="回收价" width="120" sortable :sort-method="numSortPrice" align="right"
+               <el-table-column label="回收价" min-width="100" sortable :sort-method="numSortPrice" align="right"
                   header-align="right">
                   <template #header>
                      <el-tooltip content="把旧金卖回商家每克能拿到的钱（三类里最低）" placement="top">
@@ -496,7 +488,7 @@
                   <template #default="{row}">{{ row.price }} <small style="color:#9a9ab0">{{ row.unit
                         }}</small></template>
                </el-table-column>
-               <el-table-column label="较原料金价" width="130" sortable header-align="right" align="right"
+               <el-table-column label="较原料金价" min-width="100" sortable header-align="right" align="right"
                   :sort-method="(a,b)=>(baseGold-num(a.price))-(baseGold-num(b.price))">
                   <template #header>
                      <el-tooltip content="原料金价 − 回收价，即回收折让" placement="top">
@@ -508,7 +500,7 @@
                      <span v-else>—</span>
                   </template>
                </el-table-column>
-               <el-table-column label="回收折让(较零售)" min-width="150" sortable header-align="right" align="right"
+               <el-table-column label="回收折让(较零售)" min-width="100" sortable header-align="right" align="right"
                   :sort-method="(a,b)=>(retailRef-num(a.price))-(retailRef-num(b.price))">
                   <template #header>
                      <el-tooltip content="周大福零售价 − 回收价，即卖出时相比买入损失的那部分溢价" placement="top">
@@ -654,6 +646,7 @@
                return ['today_price', 'sell_price', 'high_price', 'low_price']
                   .some(k => { const v = String(row[k] == null ? '' : row[k]).trim(); return v === '--' || v === ''; });
             }
+
 
             const START_DATE = '2026-10-23';
             function candidateDates() {
