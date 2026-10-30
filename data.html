@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>黄金价格数据明细</title>
+   <link rel="stylesheet" href="lib/element-plus.css" />
+   <style>
+      * {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         margin: 0;
+         padding: 0;
+      }
+
+      body {
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+         background: linear-gradient(135deg, #1f2433 0%, #2b2030 50%, #3a2a22 100%);
+         color: #e9e9f0;
+         min-height: 100vh;
+      }
+
+      #app {
+         max-width: 1280px;
+         margin: 0 auto;
+         padding: 24px 20px 60px;
+      }
+
+      .page-header {
+         display: flex;
+         flex-wrap: wrap;
+         align-items: baseline;
+         gap: 12px;
+         margin-bottom: 6px;
+      }
+
+      .page-header h1 {
+         font-size: 26px;
+         margin: 0;
+         font-weight: 700;
+         background: linear-gradient(90deg, #ffd479, #ff9d5c);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+      }
+
+      .page-sub {
+         color: #b9b9c9;
+         font-size: 13px;
+      }
+
+      .toolbar {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 14px;
+         align-items: center;
+         margin: 16px 0 22px;
+         padding: 14px 16px;
+         background: rgba(255, 255, 255, 0.05);
+         border: 1px solid rgba(255, 255, 255, 0.08);
+         border-radius: 12px;
+      }
+
+      .section-title {
+         font-size: 17px;
+         font-weight: 600;
+         margin: 26px 0 12px;
+         color: #f3f3fa;
+         display: flex;
+         align-items: center;
+         gap: 8px;
+      }
+
+      .section-title::before {
+         content: "";
+         width: 4px;
+         height: 18px;
+         background: linear-gradient(#ffd479, #ff9d5c);
+         border-radius: 2px;
+      }
+
+      .empty-tip {
+         color: #9a9ab0;
+         font-size: 13px;
+         padding: 30px;
+         text-align: center;
+      }
+
+      .footer {
+         margin-top: 36px;
+         text-align: center;
+         color: #8a8a9e;
+         font-size: 12px;
+      }
+
+      /* 明细表可读性增强 */
+      .detail-help {
+         color: #a9a9bd;
+         font-size: 12px;
+         line-height: 1.7;
+         background: rgba(255, 255, 255, 0.04);
+         border: 1px solid rgba(255, 255, 255, 0.08);
+         border-radius: 8px;
+         padding: 8px 12px;
+         margin-bottom: 12px;
+      }
+
+      .detail-help b {
+         color: #dcdce8;
+         font-weight: 600;
+      }
+
+      .m-name {
+         font-weight: 600;
+         color: #f3f3fa;
+      }
+
+      .m-desc {
+         color: #9a9ab0;
+         font-size: 11px;
+         line-height: 1.4;
+         margin-top: 2px;
+      }
+
+      .ok-tag {
+         color: #5fd38a;
+         font-size: 12px;
+      }
+
+      .premium-tag {
+         color: #ff9d5c;
+         font-size: 12px;
+         font-weight: 600;
+      }
+
+      .up {
+         color: #ff7a7a;
+      }
+
+      .down {
+         color: #5fd38a;
+      }
+
+      /* Element Plus 表格深色适配 */
+      .chart-box .el-table {
+         --el-table-bg-color: transparent;
+         --el-table-tr-bg-color: transparent;
+         --el-table-header-bg-color: rgba(255, 255, 255, 0.05);
+         --el-table-text-color: #e9e9f0;
+         --el-table-header-text-color: #c5c5d6;
+         --el-table-border-color: rgba(255, 255, 255, 0.10);
+         --el-table-row-hover-bg-color: rgba(255, 255, 255, 0.08);
+         --el-fill-color-lighter: rgba(255, 255, 255, 0.03);
+         background: transparent;
+         color: #e9e9f0;
+      }
+
+      .chart-box .el-table .el-table__cell,
+      .chart-box .el-table th.el-table__cell,
+      .chart-box .el-table td.el-table__cell {
+         background: transparent;
+         color: #e9e9f0;
+         border-color: rgba(255, 255, 255, 0.10);
+      }
+
+      .chart-box .el-table th.el-table__cell {
+         color: #c5c5d6;
+         font-weight: 600;
+      }
+
+      .chart-box .el-table .el-table__row:hover>td.el-table__cell {
+         background: rgba(255, 255, 255, 0.08);
+      }
+
+      .chart-box .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+         background: rgba(255, 255, 255, 0.03);
+      }
+
+      .chart-box.el-tabs--border-card,
+      .chart-box.el-tabs--border-card .el-tabs__content {
+         background: transparent;
+         border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .chart-box.el-tabs--border-card .el-tabs__header {
+         background: rgba(255, 255, 255, 0.04);
+         border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .chart-box.el-tabs--border-card .el-tabs__item {
+         color: #c5c5d6;
+      }
+
+      .chart-box.el-tabs--border-card .el-tabs__item.is-active {
+         background: transparent;
+         color: #ffd479;
+         border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      [v-cloak] {
+         display: none;
+      }
+   </style>
+</head>
+
+<body>
+   <div id="app" v-cloak>
+      <div class="page-header">
+         <h1>黄金价格数据明细</h1>
+         <span class="page-sub">数据范围：{{ dateRangeText }} · 共 {{ dates.length }} 天</span>
+      </div>
+
+      <div class="toolbar">
+         <span style="color:#c5c5d6;font-size:13px;">查看日期</span>
+         <el-select v-model="selectedDate" placeholder="选择日期" style="width:170px" size="default">
+            <el-option v-for="d in dates" :key="d" :label="d" :value="d" />
+         </el-select>
+         <el-tag v-if="!liveMode" type="danger" effect="dark" size="small">加载失败</el-tag>
+         <el-tag v-else :type="isLocal ? 'success' : 'warning'" effect="dark" size="small">{{ isLocal ? '本地数据' : '远程数据'
+            }}</el-tag>
+         <span v-if="current && current.metals[0]" class="page-sub">更新于 {{ current.metals[0].updated }}</span>
+      </div>
+
+      <div class="section-title">数据明细表（{{ selectedDate }}）</div>
+      <el-tabs v-model="activeTab" class="chart-box full" type="border-card">
+         <el-tab-pane label="行情" name="metals">
+            <div class="detail-help">
+               单位分两类：<b>元/克</b>（国内报价）与 <b>美元/盎司</b>（国际报价）。
+               <b>最新价</b>为实时报价，<b>卖出价</b>为交易商卖出价，<b>最高/最低</b>为当日区间；<b>较前日</b>含涨跌额与涨跌幅。
+            </div>
+            <el-table :data="current ? current.metals : []" size="small" stripe border width="100%">
+               <el-table-column key="name" label="品种" width="190" show-overflow-tooltip>
+                  <template #header>
+                     <el-tooltip content="金属品种名称及简要说明（如 Au9999、伦敦金等）" placement="top-start">
+                        <span>品种</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <div class="m-name">{{ row.name }}</div>
+                     <div class="m-desc">{{ metalDesc(row.name) }}</div>
+                  </template>
+               </el-table-column>
+               <el-table-column key="market" label="市场" width="80" header-align="center"
+                  :filters="[{text:'国内',value:'国内'},{text:'国际',value:'国际'}]"
+                  :filter-method="(v,r)=>marketOf(r.name)===v">
+                  <template #header>
+                     <el-tooltip content="国内报价（元/克）或国际报价（美元/盎司）" placement="top">
+                        <span>市场</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <el-tag size="small" :type="marketOf(row.name)==='国内'?'':'info'" effect="plain">{{
+                        marketOf(row.name) }}</el-tag>
+                  </template>
+               </el-table-column>
+               <el-table-column key="unit" prop="unit" label="单位" width="90" header-align="center" align="center">
+                  <template #header>
+                     <el-tooltip content="元/克（国内）或 美元/盎司（国际）" placement="top">
+                        <span>单位</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="today" prop="today_price" label="最新价" width="100" sortable
+                  :sort-method="numSortBy('today_price')" align="right" header-align="right">
+                  <template #header>
+                     <el-tooltip content="实时最新报价" placement="top">
+                        <span>最新价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}"><b>{{ row.today_price }}</b></template>
+               </el-table-column>
+               <el-table-column key="sell" prop="sell_price" label="卖出价" width="90" sortable
+                  :sort-method="numSortBy('sell_price')" align="right" header-align="right">
+                  <template #header>
+                     <el-tooltip content="交易商卖出价" placement="top">
+                        <span>卖出价</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="high" prop="high_price" label="最高" width="90" sortable
+                  :sort-method="numSortBy('high_price')" align="right" header-align="right">
+                  <template #header>
+                     <el-tooltip content="当日最高价" placement="top">
+                        <span>最高</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="low" prop="low_price" label="最低" width="90" sortable
+                  :sort-method="numSortBy('low_price')" align="right" header-align="right">
+                  <template #header>
+                     <el-tooltip content="当日最低价" placement="top">
+                        <span>最低</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="change" label="较前日" width="150" header-align="right" align="right">
+                  <template #header>
+                     <el-tooltip content="较前一交易日：涨跌额（括号内为涨跌幅）" placement="top">
+                        <span>较前日</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <span v-if="metalChange(row.name) != null"
+                        :class="metalChange(row.name) > 0 ? 'up' : (metalChange(row.name) < 0 ? 'down' : '')">
+                        {{ metalChange(row.name) > 0 ? '▲' : (metalChange(row.name) < 0 ? '▼' : '■' ) }} {{
+                           Math.abs(metalChange(row.name)) }} <small v-if="metalChangePct(row.name) != null">（{{
+                           metalChangePct(row.name) > 0 ? '+' : '' }}{{ metalChangePct(row.name) }}%）</small>
+                     </span>
+                     <span v-else>—</span>
+                  </template>
+               </el-table-column>
+               <el-table-column key="status" label="状态" width="90" header-align="center">
+                  <template #header>
+                     <el-tooltip content="最高<最低为「高低异常」；含缺失值为「缺失」；否则「正常」" placement="top">
+                        <span>状态</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <el-tag v-if="lowHighAnomaly(row)" type="warning" size="small" effect="dark">高低异常</el-tag>
+                     <el-tag v-else-if="hasDash(row)" type="info" size="small" effect="plain">缺失</el-tag>
+                     <span v-else class="ok-tag">正常</span>
+                  </template>
+               </el-table-column>
+               <el-table-column key="updated" prop="updated" label="更新时间" min-width="150" header-align="center"
+                  align="center">
+                  <template #header>
+                     <el-tooltip content="该行情的更新时间" placement="top">
+                        <span>更新时间</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+            </el-table>
+         </el-tab-pane>
+         <el-tab-pane label="零售门店" name="stores">
+            <div class="detail-help">
+               <b>零售门店金价</b>＝你到店买金饰/金条要付的钱，含工费与品牌溢价，是三类里最贵的。
+               最后一列「较回收价溢价」= 零售价 − 黄金回收价，即品牌加价幅度；部分品牌另附 <b>铂金</b> 报价，无则显示「—」。
+            </div>
+            <el-table :data="retailStores" size="small" stripe border width="100%">
+               <el-table-column key="brand" label="品牌" width="150" sortable
+                  :sort-method="(a,b)=>(a.brand||'').localeCompare(b.brand||'','zh')">
+                  <template #header>
+                     <el-tooltip content="零售品牌（周大福、老凤祥等门店金价）" placement="top-start">
+                        <span>品牌</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}"><b style="color:#f3f3fa">{{ row.brand }}</b></template>
+               </el-table-column>
+               <el-table-column key="gold-price" label="黄金金价" width="120" sortable :sort-method="numSortPrice"
+                  align="right" header-align="right">
+                  <template #header>
+                     <el-tooltip content="到店买黄金饰品/金条每克要付的钱（含工费与品牌溢价）" placement="top">
+                        <span>黄金金价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">{{ row.price }} <small style="color:#9a9ab0">{{ row.unit
+                        }}</small></template>
+               </el-table-column>
+               <el-table-column key="plat-price" label="铂金金价" width="120" sortable
+                  :sort-method="(a,b)=>(num(a.extra_price)??-Infinity)-(num(b.extra_price)??-Infinity)" align="right"
+                  header-align="right">
+                  <template #header>
+                     <el-tooltip content="部分品牌另附的铂金每克售价，无则显示「—」" placement="top">
+                        <span>铂金金价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">{{ (row.extra_product && row.extra_price) ? (row.extra_price + ' 元/克') :
+                     '—' }}</template>
+               </el-table-column>
+               <el-table-column key="premium" label="较回收价溢价" min-width="150" sortable
+                  :sort-method="(a,b)=>(num(a.price)-recycleGold)-(num(b.price)-recycleGold)" align="right"
+                  header-align="right">
+                  <template #header>
+                     <el-tooltip content="零售价 − 黄金回收价，即品牌加价幅度" placement="top">
+                        <span>较回收价溢价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <span v-if="recycleGold != null" class="premium-tag">+{{ (num(row.price) - recycleGold).toFixed(0)
+                        }} 元/克</span>
+                     <span v-else>—</span>
+                  </template>
+               </el-table-column>
+            </el-table>
+         </el-tab-pane>
+         <el-tab-pane label="金条行情" name="banks">
+            <div class="detail-help">
+               <b>金条行情</b>＝银行/珠宝品牌出售的实物金条价，比零售金饰便宜、比原料金价略高。同一机构的两类金条已合并分组：
+               <b>投资金条</b>（如意金条等）工费低、贴近原料价；<b>工艺金条</b>偏饰品、工费高、价格明显更贵。
+               「较原料金价」= 金条价 − 今日原料金价（工费空间）；「溢价(较回收价)」= 金条价 − 黄金回收价，即买入后若立即回收会损失的价差。
+            </div>
+            <el-table :data="investBanks" size="small" stripe border width="100%" :span-method="bankSpanMethod">
+               <el-table-column key="bank" prop="bank" label="机构" width="140" sortable>
+                  <template #header>
+                     <el-tooltip content="出售金条的银行 / 珠宝品牌" placement="top-start">
+                        <span>机构</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="product" prop="product" label="产品" width="120" sortable show-overflow-tooltip>
+                  <template #header>
+                     <el-tooltip content="具体金条产品名（如如意金条、传世金等）" placement="top-start">
+                        <span>产品</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="use" label="用途" width="130" header-align="center">
+                  <template #header>
+                     <el-tooltip content="投资金条：工费低、贴近原料价；工艺金条：偏饰品、工费高" placement="top">
+                        <span>用途</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <el-tag size="small" :type="/工艺/.test(row.product) ? 'warning' : 'success'" effect="plain">{{
+                        /工艺/.test(row.product) ? '工艺饰品·高工费' : '投资·低工费' }}</el-tag>
+                  </template>
+               </el-table-column>
+               <el-table-column key="category" prop="category" label="类别" width="100" :filters="catFilters"
+                  :filter-method="catFilterM" show-overflow-tooltip>
+                  <template #header>
+                     <el-tooltip content="机构给金条贴的分类标签" placement="top">
+                        <span>类别</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column key="price" label="价格" width="110" sortable :sort-method="numSortPrice" align="right"
+                  header-align="right">
+                  <template #header>
+                     <el-tooltip content="该金条每克售价（已含工费）" placement="top">
+                        <span>价格</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">{{ row.price }} <small style="color:#9a9ab0">{{ row.unit
+                        }}</small></template>
+               </el-table-column>
+               <el-table-column key="vs-base" label="较原料金价" width="130" sortable header-align="right" align="right"
+                  :sort-method="(a,b)=>(num(a.price)-baseGold)-(num(b.price)-baseGold)">
+                  <template #header>
+                     <el-tooltip content="金条价 − 今日原料金价，即工费空间" placement="top">
+                        <span>较原料金价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <span v-if="baseGold != null" class="premium-tag">+{{ (num(row.price) - baseGold).toFixed(0)
+                        }}</span>
+                     <span v-else>—</span>
+                  </template>
+               </el-table-column>
+               <el-table-column key="vs-recycle" label="溢价(较回收价)" min-width="150" sortable header-align="right"
+                  align="right" :sort-method="(a,b)=>(num(a.price)-recycleGold)-(num(b.price)-recycleGold)">
+                  <template #header>
+                     <el-tooltip content="金条价 − 黄金回收价；买入后若立即回收会损失的价差" placement="top">
+                        <span>溢价(较回收价)</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <span v-if="recycleGold != null" class="premium-tag">+{{ (num(row.price) - recycleGold).toFixed(0)
+                        }} 元/克</span>
+                     <span v-else>—</span>
+                  </template>
+               </el-table-column>
+            </el-table>
+         </el-tab-pane>
+         <el-tab-pane label="回收价" name="recycle">
+            <div class="detail-help">
+               <b>回收价</b>＝你把手上旧金卖回给商家能拿到的钱，是三类里最低的。
+               按 <b>成色/纯度</b> 区分：k 值越高含金量越高（24k≈99.9%，18k=75%，14k≈58.5%）；铂/钯/银按 99.9% 纯度回收。
+               「较原料金价」= 原料金价 − 回收价（回收折让）；「回收折让(较零售)」= 周大福零售价 − 回收价，即卖出时相比买入损失的那部分溢价。
+            </div>
+            <el-table :data="current ? current.recycle : []" size="small" stripe border width="100%">
+               <el-table-column prop="type" label="类型" width="150" sortable show-overflow-tooltip>
+                  <template #header>
+                     <el-tooltip content="回收品类（黄金按 k 值、铂/钯/银按 99.9% 纯度）" placement="top-start">
+                        <span>类型</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column prop="purity" label="纯度/成色" width="130" sortable show-overflow-tooltip>
+                  <template #header>
+                     <el-tooltip content="含金量：k 值越高越高（24k≈99.9%，18k=75%，14k≈58.5%）" placement="top-start">
+                        <span>纯度/成色</span>
+                     </el-tooltip>
+                  </template>
+               </el-table-column>
+               <el-table-column label="回收价" width="120" sortable :sort-method="numSortPrice" align="right"
+                  header-align="right">
+                  <template #header>
+                     <el-tooltip content="把旧金卖回商家每克能拿到的钱（三类里最低）" placement="top">
+                        <span>回收价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">{{ row.price }} <small style="color:#9a9ab0">{{ row.unit
+                        }}</small></template>
+               </el-table-column>
+               <el-table-column label="较原料金价" width="130" sortable header-align="right" align="right"
+                  :sort-method="(a,b)=>(baseGold-num(a.price))-(baseGold-num(b.price))">
+                  <template #header>
+                     <el-tooltip content="原料金价 − 回收价，即回收折让" placement="top">
+                        <span>较原料金价</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <span v-if="baseGold != null" class="down">−{{ (baseGold - num(row.price)).toFixed(0) }}</span>
+                     <span v-else>—</span>
+                  </template>
+               </el-table-column>
+               <el-table-column label="回收折让(较零售)" min-width="150" sortable header-align="right" align="right"
+                  :sort-method="(a,b)=>(retailRef-num(a.price))-(retailRef-num(b.price))">
+                  <template #header>
+                     <el-tooltip content="周大福零售价 − 回收价，即卖出时相比买入损失的那部分溢价" placement="top">
+                        <span>回收折让(较零售)</span>
+                     </el-tooltip>
+                  </template>
+                  <template #default="{row}">
+                     <span v-if="retailRef != null" class="down">−{{ (retailRef - num(row.price)).toFixed(0) }}
+                        元/克</span>
+                     <span v-else>—</span>
+                  </template>
+               </el-table-column>
+            </el-table>
+         </el-tab-pane>
+      </el-tabs>
+
+      <div class="footer">数据来源：{{ isLocal ? '本地 data/ 目录' : 'GitHub 远程仓库 (raw.githubusercontent.com)' }} · 表格由 Element
+         Plus 生成</div>
+      <div v-if="loadError" class="empty-tip">{{ loadError }}</div>
+   </div>
+
+   <script src="lib/vue.global.prod.js"></script>
+   <script src="lib/element-plus.js"></script>
+   <script>
+      const { createApp, ref, computed, onMounted } = Vue;
+
+      const App = {
+         setup() {
+            const embedded = window.__EMBEDDED__ || { dates: [], days: {} };
+            const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+            const DATA_BASE = isLocal ? 'data/' : 'https://raw.githubusercontent.com/nate-project/gold/refs/heads/main/data/';
+            const loadError = ref('');
+            const dates = ref([]);
+            const days = ref({});
+            const liveMode = ref(false);
+            const selectedDate = ref('');
+            const activeTab = ref('metals');
+
+            const num = (v) => {
+               if (v == null) return null;
+               const n = parseFloat(String(v).replace(/,/g, '').trim());
+               return isNaN(n) ? null : n;
+            };
+
+            const current = computed(() => days.value[selectedDate.value] || null);
+            const dateRangeText = computed(() => dates.value.length ? (dates.value[0] + ' ～ ' + dates.value[dates.value.length - 1]) : '无数据');
+            const retailStores = computed(() => current.value ? current.value.stores.filter(s => s.product === '黄金') : []);
+            const baseGold = computed(() => metalVal('今日金价', selectedDate.value, 'today_price'));
+            const recycleGold = computed(() => recycleVal('黄金回收', selectedDate.value));
+            const retailRef = computed(() => storeVal('周大福', selectedDate.value));
+
+            const BANK_SET = new Set(['工商银行', '中国银行', '建设银行', '农业银行', '民生银行', '平安银行', '邮政银行', '招商银行', '交通银行', '中信银行', '兴业银行']);
+            const investBanks = computed(() => {
+               if (!current.value) return [];
+               return current.value.banks
+                  .filter(b => /金条/.test(b.product))
+                  .map(b => ({ ...b, name: b.bank + ' ' + b.product, category: BANK_SET.has(b.bank) ? '银行' : '珠宝品牌' }))
+                  .sort((a, b) => {
+                     if (a.bank !== b.bank) return a.bank.localeCompare(b.bank, 'zh');
+                     return (a.product.includes('工艺') ? 1 : 0) - (b.product.includes('工艺') ? 1 : 0);
+                  });
+            });
+            // 同机构纵向合并单元格，形成分组效果
+            function bankSpanMethod({ rowIndex, columnIndex }) {
+               if (columnIndex !== 0) return { rowspan: 1, colspan: 1 };
+               const rows = investBanks.value;
+               if (!rows.length) return { rowspan: 1, colspan: 1 };
+               const cur = rows[rowIndex].bank;
+               if (rowIndex > 0 && rows[rowIndex - 1].bank === cur) return { rowspan: 0, colspan: 0 };
+               let span = 1;
+               while (rowIndex + span < rows.length && rows[rowIndex + span].bank === cur) span++;
+               return { rowspan: span, colspan: 1 };
+            }
+
+            function metalVal(name, date, field) {
+               const d = days.value[date];
+               if (!d) return null;
+               const m = d.metals.find(x => x.name === name);
+               return m ? num(m[field]) : null;
+            }
+            function storeVal(brand, date) {
+               const d = days.value[date];
+               if (!d) return null;
+               const s = d.stores.find(x => x.brand === brand && x.product === '黄金');
+               return s ? num(s.price) : null;
+            }
+            function bankVal(bank, date) {
+               const d = days.value[date];
+               if (!d) return null;
+               const b = d.banks.find(x => x.bank === bank && /金条/.test(x.product));
+               return b ? num(b.price) : null;
+            }
+            function recycleVal(type, date) {
+               const d = days.value[date];
+               if (!d || !d.recycle) return null;
+               const list = d.recycle;
+               const r = list.find(x => x.type === type)
+                  || list.find(x => x.type.includes(type))
+                  || list.find(x => /黄金/.test(type) && /黄金/.test(x.type) && /回收/.test(x.type));
+               return r ? num(r.price) : null;
+            }
+
+            const METAL_DESC = {
+               '今日金价': '国内基础金价（综合参考价）',
+               '黄金价格': '国内黄金盘面报价',
+               '黄金_9999': '上海黄金交易所 Au99.99 现货',
+               '黄金_T+D': '上海黄金交易所 黄金延期交收合约',
+               '伦敦金(现货黄金)': '国际现货黄金（伦敦盘，美元/盎司）',
+               '纽约黄金(美国)': '纽约 COMEX 黄金期货（美元/盎司）',
+               '白银价格': '国内白银盘面报价',
+               '铂金价格': '国内铂金盘面报价',
+               '钯金价格': '国内钯金盘面报价',
+            };
+            const metalDesc = (name) => METAL_DESC[name] || '';
+            const marketOf = (name) => /伦敦金|纽约黄金/.test(name) ? '国际' : '国内';
+
+            const numSortBy = (field) => (a, b) => (num(a[field]) ?? -Infinity) - (num(b[field]) ?? -Infinity);
+            const numSortPrice = (a, b) => (num(a.price) ?? -Infinity) - (num(b.price) ?? -Infinity);
+            const catFilters = [{ text: '银行', value: '银行' }, { text: '珠宝品牌', value: '珠宝品牌' }];
+            const catFilterM = (value, row) => row.category === value;
+
+            function metalChange(name) {
+               const idx = dates.value.indexOf(selectedDate.value);
+               if (idx <= 0) return null;
+               const cur = metalVal(name, selectedDate.value, 'today_price');
+               const prev = metalVal(name, dates.value[idx - 1], 'today_price');
+               if (cur == null || prev == null) return null;
+               return +(cur - prev).toFixed(2);
+            }
+            function metalChangePct(name) {
+               const idx = dates.value.indexOf(selectedDate.value);
+               if (idx <= 0) return null;
+               const cur = metalVal(name, selectedDate.value, 'today_price');
+               const prev = metalVal(name, dates.value[idx - 1], 'today_price');
+               if (cur == null || prev == null || prev === 0) return null;
+               return +(((cur - prev) / prev) * 100).toFixed(2);
+            }
+            function lowHighAnomaly(row) {
+               const h = num(row.high_price), l = num(row.low_price);
+               return h != null && l != null && l > h;
+            }
+            function hasDash(row) {
+               return ['today_price', 'sell_price', 'high_price', 'low_price']
+                  .some(k => { const v = String(row[k] == null ? '' : row[k]).trim(); return v === '--' || v === ''; });
+            }
+
+            const START_DATE = '2026-10-23';
+            function candidateDates() {
+               const out = [];
+               const start = new Date(START_DATE + 'T00:00:00');
+               const end = new Date();
+               end.setHours(23, 59, 59, 999);
+               for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                  const y = d.getFullYear();
+                  const m = String(d.getMonth() + 1).padStart(2, '0');
+                  const day = String(d.getDate()).padStart(2, '0');
+                  out.push(y + '-' + m + '-' + day);
+               }
+               return out;
+            }
+
+            async function loadAvailable(base) {
+               const map = {};
+               await Promise.all(candidateDates().map(async (d) => {
+                  try {
+                     const r = await fetch(base + d + '.json');
+                     if (!r.ok) return;
+                     const json = await r.json();
+                     if (json && json.metals) map[d] = json;
+                  } catch (e) { }
+               }));
+               const keys = Object.keys(map).sort();
+               if (!keys.length) throw new Error('no data');
+               return { dates: keys, days: map };
+            }
+
+            onMounted(async () => {
+               let data;
+               try { data = await loadAvailable(DATA_BASE); liveMode.value = true; }
+               catch (e) { data = embedded; liveMode.value = false; loadError.value = '数据加载失败：' + e.message; }
+               dates.value = data.dates.slice().sort();
+               days.value = data.days;
+               selectedDate.value = dates.value[dates.value.length - 1] || '';
+            });
+
+            return {
+               dates, selectedDate, liveMode, isLocal, loadError, activeTab,
+               current, dateRangeText, retailStores, investBanks, baseGold, recycleGold, retailRef,
+               num, numSortBy, numSortPrice, catFilters, catFilterM, bankSpanMethod,
+               metalChange, metalChangePct, metalDesc, marketOf, lowHighAnomaly, hasDash,
+            };
+         },
+      };
+
+      createApp(App).use(ElementPlus).mount('#app');
+   </script>
+</body>
+
+</html>
