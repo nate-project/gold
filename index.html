@@ -307,7 +307,8 @@
             <el-option v-for="d in dates" :key="d" :label="d" :value="d" />
          </el-select>
          <el-tag v-if="!liveMode" type="danger" effect="dark" size="small">加载失败</el-tag>
-         <el-tag v-else :type="isLocal ? 'success' : 'warning'" effect="dark" size="small">{{ isLocal ? '本地数据' : '远程数据' }}</el-tag>
+         <el-tag v-else :type="isLocal ? 'success' : 'warning'" effect="dark" size="small">{{ isLocal ? '本地数据' : '远程数据'
+            }}</el-tag>
          <span v-if="current && current.metals[0]" class="page-sub">更新于 {{ current.metals[0].updated }}</span>
       </div>
 
@@ -450,8 +451,8 @@
                      <span v-if="metalChange(row.name) != null"
                         :class="metalChange(row.name) > 0 ? 'up' : (metalChange(row.name) < 0 ? 'down' : '')">
                         {{ metalChange(row.name) > 0 ? '▲' : (metalChange(row.name) < 0 ? '▼' : '■' ) }} {{
-                           Math.abs(metalChange(row.name)) }}
-                        <small v-if="metalChangePct(row.name) != null">（{{ metalChangePct(row.name) > 0 ? '+' : '' }}{{
+                           Math.abs(metalChange(row.name)) }} <small v-if="metalChangePct(row.name) != null">（{{
+                           metalChangePct(row.name) > 0 ? '+' : '' }}{{
                            metalChangePct(row.name) }}%）</small>
                      </span>
                      <span v-else>—</span>
@@ -557,8 +558,8 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="price" label="价格" min-width="110" sortable :sort-method="numSortPrice" align="right"
-                  header-align="right">
+               <el-table-column key="price" label="价格" min-width="110" sortable :sort-method="numSortPrice"
+                  align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="该金条每克售价（已含工费）" placement="top">
                         <span>价格</span>
@@ -575,7 +576,8 @@
                      </el-tooltip>
                   </template>
                   <template #default="{row}">
-                     <span v-if="baseGold != null" class="premium-tag">+{{ (num(row.price) - baseGold).toFixed(0) }}</span>
+                     <span v-if="baseGold != null" class="premium-tag">+{{ (num(row.price) - baseGold).toFixed(0)
+                        }}</span>
                      <span v-else>—</span>
                   </template>
                </el-table-column>
@@ -615,8 +617,8 @@
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="price" label="回收价" min-width="110" sortable :sort-method="numSortPrice" align="right"
-                  header-align="right">
+               <el-table-column key="price" label="回收价" min-width="110" sortable :sort-method="numSortPrice"
+                  align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="把旧金卖回商家每克能拿到的钱（三类里最低）" placement="top">
                         <span>回收价</span>
@@ -654,7 +656,8 @@
          </el-tab-pane>
       </el-tabs>
 
-      <div class="footer">数据来源：{{ isLocal ? '本地 data/ 目录' : 'GitHub 远程仓库 (raw.githubusercontent.com)' }} · 可视化由 ECharts + Element Plus 生成</div>
+      <div class="footer">数据来源：{{ isLocal ? '本地 data/ 目录' : 'GitHub 远程仓库 (raw.githubusercontent.com)' }} · 可视化由 ECharts
+         + Element Plus 生成</div>
       <div v-if="loadError" class="empty-tip">{{ loadError }}</div>
    </div>
 
@@ -679,7 +682,7 @@
             const priceField = ref('today_price');
             const normalize = ref(false);
             const allMetals = ['今日金价', '黄金价格', '黄金_9999', '黄金_T+D', '伦敦金(现货黄金)', '纽约黄金(美国)', '白银价格', '铂金价格', '钯金价格'];
-            const selectedMetals = ref(['今日金价', '黄金_9999', '伦敦金(现货黄金)', '纽约黄金(美国)']);
+            const selectedMetals = ref(['今日金价', '黄金_9999', '黄金_T+D']);
 
             const trendEl = ref(null), storeEl = ref(null), bankEl = ref(null), recycleEl = ref(null), premiumEl = ref(null);
             let trendChart, storeChart, bankChart, recycleChart, premiumChart;
@@ -921,7 +924,7 @@
             }
 
             // 生成从 START_DATE 到今天的所有候选日期
-            const START_DATE = '2026-10-23';
+            const START_DATE = '2026-10-22';
             function candidateDates() {
                const out = [];
                const start = new Date(START_DATE + 'T00:00:00');

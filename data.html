@@ -339,8 +339,7 @@
                         }}</small></template>
                </el-table-column>
                <el-table-column key="plat-price" label="铂金金价" min-width="100" sortable
-                  :sort-method="numSortBy('extra_price')" align="right"
-                  header-align="right">
+                  :sort-method="numSortBy('extra_price')" align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="部分品牌另附的铂金每克售价，无则显示「—」" placement="top">
                         <span>铂金金价</span>
@@ -397,16 +396,15 @@
                         /工艺/.test(row.product) ? '工艺饰品·高工费' : '投资·低工费' }}</el-tag>
                   </template>
                </el-table-column>
-               <el-table-column key="category" prop="category" label="类别" min-width="100"
-                   show-overflow-tooltip>
+               <el-table-column key="category" prop="category" label="类别" min-width="100" show-overflow-tooltip>
                   <template #header>
                      <el-tooltip content="机构给金条贴的分类标签" placement="top">
                         <span>类别</span>
                      </el-tooltip>
                   </template>
                </el-table-column>
-               <el-table-column key="price" label="价格" min-width="100" sortable :sort-method="numSortBy('price')" align="right"
-                  header-align="right">
+               <el-table-column key="price" label="价格" min-width="100" sortable :sort-method="numSortBy('price')"
+                  align="right" header-align="right">
                   <template #header>
                      <el-tooltip content="该金条每克售价（已含工费）" placement="top">
                         <span>价格</span>
@@ -608,7 +606,7 @@
             }
 
 
-            const START_DATE = '2026-10-23';
+            const START_DATE = '2026-10-22';
             function candidateDates() {
                const out = [];
                const start = new Date(START_DATE + 'T00:00:00');
